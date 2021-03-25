@@ -10,10 +10,7 @@ int main(int argc, char *argv[])
 
 
     Server server;
-
-
-   //qwewerwer
-   //qwewerwer
+    //ghjghhjk
 
     return a.exec();
 }
