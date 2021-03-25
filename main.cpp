@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     Server server;
 
 
-
+   //qwe
 
     return a.exec();
 }
