@@ -17,26 +17,62 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Header Files\Controller">
+      <UniqueIdentifier>{88690c4d-05ec-43e8-a79e-97ac66d0b4b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{04c1e055-0413-4673-90e0-bcfaa66b8b94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Controller">
+      <UniqueIdentifier>{5f1d9c73-fc3a-4302-9a52-bf917327f1e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{457fb3cb-eb9e-4944-85fc-6a294f3ae391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Server">
+      <UniqueIdentifier>{ce62daa6-ba43-424c-bdc4-28ba4ad6c989}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Server">
+      <UniqueIdentifier>{190d2fde-64d6-4997-89a8-ac4598aeb155}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Server.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Server</Filter>
     </ClCompile>
     <ClCompile Include="ServerController.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Operation.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="OperationCreator.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="OperationParser.cpp">
+      <Filter>Source Files\Controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Server.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Server</Filter>
+    </QtMoc>
+    <QtMoc Include="ServerController.h">
+      <Filter>Header Files\Controller</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ServerController.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Operation.h">
+      <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="OperationCreator.h">
+      <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="OperationParser.h">
+      <Filter>Header Files\Controller</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

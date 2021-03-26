@@ -1,30 +1,29 @@
 #pragma once
 
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
+#include <qtcpsocket.h>
+#include "OperationParser.h"
 
 using namespace std;
-class ServerController
+
+using SocketList = QMap<int, QTcpSocket*>;
+class ServerController :
+	public QObject
 {
+	Q_OBJECT
 public:
-	bool map[16]{ 0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1};
 
-	bool checkCell(int index)
-	{
-		
-		return map[index];
+	QByteArray processor(int id, QByteArray array);
+	
+	ServerController(SocketList* clientList, QObject* parent = nullptr);
 
-	}
 
-	QByteArray handle(QByteArray array)
-	{
-		QJsonDocument document = QJsonDocument::fromJson(array);
-		auto obj = document.object();
-		for(auto i : obj)
-		qDebug() << "json" <<i;
-		return array;
+private:
 
-	}
+	SocketList* clientList;
+	void log(QString message);
+
+public slots:
+	void request(int id);
+
 };
 

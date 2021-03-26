@@ -91,6 +91,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Operation.cpp" />
+    <ClCompile Include="OperationCreator.cpp" />
+    <ClCompile Include="OperationParser.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="ServerController.cpp" />
   </ItemGroup>
@@ -98,7 +101,10 @@
     <QtMoc Include="Server.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ServerController.h" />
+    <ClInclude Include="Operation.h" />
+    <ClInclude Include="OperationCreator.h" />
+    <ClInclude Include="OperationParser.h" />
+    <QtMoc Include="ServerController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

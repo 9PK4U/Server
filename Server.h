@@ -2,28 +2,27 @@
 #include <qobject.h>
 #include <qtcpserver.h>
 #include <qtcpsocket.h>
+#include "ServerController.h"
+
+
 class Server :
     public QObject
 {
-
-  
     Q_OBJECT
 public:
-    explicit Server(QObject* parent = 0);
+    explicit Server(QObject* parent = nullptr);
 
 public slots:
     void slotNewConnection();
-    void slotServerRead();
-    void slotClientDisconnected();
-    void slotClientConnected();
 
     
 
 private:
     QTcpServer* server;
-    
+    SocketList* clientList;
+    ServerController *controller;
 
-    QMap<int, QTcpSocket*> SClients;
+    void writeToLog(QString message);
 };
 
 

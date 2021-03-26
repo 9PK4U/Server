@@ -12,56 +12,33 @@ Server::Server(QObject* parent) : QObject(parent)
     connect(server, &QTcpServer::newConnection, this, &Server::slotNewConnection);
 
     if (!server->listen(QHostAddress::Any, 6000)) {
-        qDebug() << "server is not started";
+        writeToLog("Not started");
+        throw std::exception("Server is not started!");
     }
-    else {
-        qDebug() << "server is started";
-    }
+
+    clientList = new SocketList();
+    controller = new ServerController(clientList,this);
+
+    writeToLog("Started");
 }
 
 void Server::slotNewConnection()
 {
-    //mTcpSocket = server->nextPendingConnection();
+    //connect(mTcpSocket, &QTcpSocket::readyRead, this, &Server::slotServerRead);
+    //connect(mTcpSocket, &QTcpSocket::disconnected, this, &Server::slotClientDisconnected);
 
- /*   mTcpSocket->write("Hello, World!!! I am echo server!\r\n");
+    writeToLog("New connected!");
 
-    connect(mTcpSocket, &QTcpSocket::readyRead, this, &Server::slotServerRead);
-    connect(mTcpSocket, &QTcpSocket::disconnected, this, &Server::slotClientDisconnected);*/
+    QTcpSocket* sock = server->nextPendingConnection();
+    int id = sock->socketDescriptor();
+    (*clientList)[id] = sock;
 
-    qDebug() << QString::fromUtf8("new connected!");
-    QTcpSocket* clientSocket = server->nextPendingConnection();
-    int idusersocs = clientSocket->socketDescriptor();
-    SClients[idusersocs] = clientSocket;
-    connect(SClients[idusersocs], SIGNAL(readyRead()), this, SLOT(slotServerRead()));
+    connect((*clientList)[id], &QTcpSocket::readyRead, controller, [=]() { controller->request(id); });
+
+
 }
 
-void Server::slotServerRead()
+void Server::writeToLog(QString message)
 {
-    foreach(int i, SClients.keys())
-    while (SClients[i]->bytesAvailable() > 0)
-    {
-        QByteArray array = SClients[i]->readAll();
-
-       // mTcpSocket->write(array);
-        qDebug() << array;
-
-        ServerController cont;
-        auto res = cont.handle(array);
-        qDebug() << "res" << res;
-        SClients[i]->write(res);
-
-        
-    }
-}
-
-void Server::slotClientDisconnected()
-{
-    qDebug() << "disConnect";
-    //mTcpSocket->close();
-}
-
-void Server::slotClientConnected()
-{
-   
-    //mTcpSocket->write(QString("hi").toUtf8());
+    qDebug() <<"Server: "<< message;
 }
