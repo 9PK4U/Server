@@ -3,6 +3,7 @@
 #include <qtcpsocket.h>
 #include "OperationParser.h"
 #include "OperationCreator.h"
+#include "../Game/Game.h"
 
 using namespace std;
 
@@ -13,13 +14,18 @@ class ServerController :
 	Q_OBJECT
 public:
 
-	void processor(int id, QByteArray arrayJsonData);
+	void requestProcessor(int id, QByteArray arrayJsonData);
+	void operationProcessor(int id, Operation operation);
 	
 	ServerController(SocketList* clientList, QObject* parent = nullptr);
 
 
 private:
+	//////////////////////////////// TEMP
+	QMap<int, Player*> players;
+	Game *game = nullptr;
 
+	////////////////////////////////
 	SocketList* clientList;
 	void log(QString message);
 

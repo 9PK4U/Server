@@ -1,6 +1,6 @@
 #include "ServerController.h"
 
-void ServerController::processor(int id, QByteArray arrayJsonData)
+void ServerController::requestProcessor(int id, QByteArray arrayJsonData)
 {
     try
     {
@@ -10,7 +10,7 @@ void ServerController::processor(int id, QByteArray arrayJsonData)
         qDebug() << QString::fromStdString(operation.toString()); //DELETE
 
 
-        response(id, operation);
+        operationProcessor(id, operation);
     }
     catch (const std::exception& ex)
     {
@@ -20,8 +20,35 @@ void ServerController::processor(int id, QByteArray arrayJsonData)
 
 }
 
+void ServerController::operationProcessor(int id, Operation operation)
+{
+    //TEMP
+    if (operation.getType() == Operation::Type::FindGame)
+    {
+        Player* player = new Player(std::to_string(id));
+        players[id] = player;
+
+    }
+    if (game == nullptr && players.size() > 1)
+    {
+        game = new Game(players.first(), players.last());
+        qDebug() << "GAME CREATED";
+    }
+    if (game != nullptr)
+    {
+        if (operation.getType() == Operation::Type::EnterCell)
+        {
+            game->step(std::stoi(operation.getParametr("Index")));
+        }
+        auto context = game->getContext();
+
+        qDebug() << QString::fromStdString(context.currentStepPlayerName) << QString::fromStdString(context.player1Points) << QString::fromStdString(context.player2Points) << QString::fromStdString(context.map) << '\n';
+    }
+}
+
 ServerController::ServerController(SocketList* clientList, QObject* parent) : clientList(clientList)
 {
+
 }
 
 void ServerController::log(QString message)
@@ -44,6 +71,6 @@ void ServerController::request(int id)
         {
             QByteArray array = client->readAll();
             log("Request from " + QString::number(id) + " Data: " + array);
-            processor(id , array);
+            requestProcessor(id , array);
         }
 }

@@ -3,6 +3,7 @@
 
 
 #include "Server/Server.h"
+#include "Game/Game.h"
 
 int main(int argc, char* argv[])
 {
@@ -10,6 +11,7 @@ int main(int argc, char* argv[])
 
 	Server server;
 
+	
 
 
     return a.exec();

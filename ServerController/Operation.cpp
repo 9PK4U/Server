@@ -63,19 +63,19 @@ Operation::Type Operation::stringToType(string sType)
     Type type;
     if (sType == "Autorization")
         return Type::Autorization;
-    if (sType == "Autorization")
+    if (sType == "EndGame")
         return Type::EndGame;
-    if (sType == "Autorization")
+    if (sType == "EnterCell")
         return Type::EnterCell;
-    if (sType == "Autorization")
+    if (sType == "Error")
         return Type::Error;
-    if (sType == "Autorization")
+    if (sType == "FindGame")
         return Type::FindGame;
-    if (sType == "Autorization")
+    if (sType == "GetStatistic")
         return Type::GetStatistic;
-    if (sType == "Autorization")
+    if (sType == "Registration")
         return Type::Registration;
-    if (sType == "Autorization")
+    if (sType == "StatusGame")
         return Type::StatusGame;
     throw std::exception("Incorrect Type");
 
