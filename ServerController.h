@@ -2,6 +2,7 @@
 
 #include <qtcpsocket.h>
 #include "OperationParser.h"
+#include "OperationCreator.h"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ class ServerController :
 	Q_OBJECT
 public:
 
-	QByteArray processor(int id, QByteArray array);
+	void processor(int id, QByteArray arrayJsonData);
 	
 	ServerController(SocketList* clientList, QObject* parent = nullptr);
 
@@ -22,6 +23,7 @@ private:
 	SocketList* clientList;
 	void log(QString message);
 
+	void response(int id, Operation operation);
 public slots:
 	void request(int id);
 

@@ -65,3 +65,9 @@ Operation OperationCreator::createEndGameResponse(string details)
     Parametrs params{ { "Details" ,details} };
     return Operation(Operation::Type::EndGame, params);
 }
+
+Operation OperationCreator::createErrorResponse(string details)
+{
+    Parametrs params{ { "Details" ,details} };
+    return Operation(Operation::Type::Error, params);
+}
