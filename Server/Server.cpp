@@ -1,9 +1,5 @@
 #include "Server.h"
-#include <QDebug>
-#include <QCoreApplication>
 
-
-#include "ServerController.h"
 
 Server::Server(QObject* parent) : QObject(parent)
 {

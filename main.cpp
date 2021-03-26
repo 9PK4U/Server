@@ -1,9 +1,8 @@
 #include <QtCore/QCoreApplication>
 
 
-#include "OperationCreator.h"
 
-#include "Server.h"
+#include "Server/Server.h"
 
 int main(int argc, char* argv[])
 {

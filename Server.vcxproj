@@ -90,21 +90,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Game.cpp" />
+    <ClCompile Include="Game\GameMap.cpp" />
+    <ClCompile Include="Game\Player.cpp" />
+    <ClCompile Include="Game\PlayerBase.cpp" />
+    <ClCompile Include="Game\Statistic.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Operation.cpp" />
-    <ClCompile Include="OperationCreator.cpp" />
-    <ClCompile Include="OperationParser.cpp" />
-    <ClCompile Include="Server.cpp" />
-    <ClCompile Include="ServerController.cpp" />
+    <ClCompile Include="ServerController\Operation.cpp" />
+    <ClCompile Include="ServerController\OperationCreator.cpp" />
+    <ClCompile Include="ServerController\OperationParser.cpp" />
+    <ClCompile Include="ServerController\ServerController.cpp" />
+    <ClCompile Include="Server\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Server.h" />
+    <QtMoc Include="Server\Server.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Operation.h" />
-    <ClInclude Include="OperationCreator.h" />
-    <ClInclude Include="OperationParser.h" />
-    <QtMoc Include="ServerController.h" />
+    <ClInclude Include="Game\Game.h" />
+    <ClInclude Include="Game\GameMap.h" />
+    <ClInclude Include="Game\Player.h" />
+    <ClInclude Include="Game\PlayerBase.h" />
+    <ClInclude Include="Game\Statistic.h" />
+    <ClInclude Include="ServerController\Operation.h" />
+    <ClInclude Include="ServerController\OperationCreator.h" />
+    <ClInclude Include="ServerController\OperationParser.h" />
+    <QtMoc Include="ServerController\ServerController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

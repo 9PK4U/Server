@@ -2,7 +2,10 @@
 #include <qobject.h>
 #include <qtcpserver.h>
 #include <qtcpsocket.h>
-#include "ServerController.h"
+#include <QDebug>
+#include <QCoreApplication>
+
+#include "../ServerController/ServerController.h"
 
 
 class Server :

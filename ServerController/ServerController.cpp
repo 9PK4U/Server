@@ -7,7 +7,7 @@ void ServerController::processor(int id, QByteArray arrayJsonData)
         QJsonDocument document = QJsonDocument::fromJson(arrayJsonData);
         auto operation = OperationParser::JsonToOperation(document);
 
-        qDebug() << QString::fromStdString(operation.toString());
+        qDebug() << QString::fromStdString(operation.toString()); //DELETE
 
 
         response(id, operation);

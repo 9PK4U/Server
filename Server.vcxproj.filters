@@ -17,62 +17,92 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
-    <Filter Include="Header Files\Controller">
-      <UniqueIdentifier>{88690c4d-05ec-43e8-a79e-97ac66d0b4b4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Game">
-      <UniqueIdentifier>{04c1e055-0413-4673-90e0-bcfaa66b8b94}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Controller">
-      <UniqueIdentifier>{5f1d9c73-fc3a-4302-9a52-bf917327f1e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game">
-      <UniqueIdentifier>{457fb3cb-eb9e-4944-85fc-6a294f3ae391}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Server">
-      <UniqueIdentifier>{ce62daa6-ba43-424c-bdc4-28ba4ad6c989}</UniqueIdentifier>
+      <UniqueIdentifier>{71fb00c6-01de-481c-b0d4-087255f1a968}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Server">
-      <UniqueIdentifier>{190d2fde-64d6-4997-89a8-ac4598aeb155}</UniqueIdentifier>
+      <UniqueIdentifier>{75a78beb-4a18-4ee2-a001-8bcf57609bb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ServerController">
+      <UniqueIdentifier>{e9e72883-d47c-4159-a556-5f14699b33fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{14e21819-13f4-4fc7-834d-31dda27500b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Server">
+      <UniqueIdentifier>{0d466c48-4d1f-41a6-8c77-677aeb4d0beb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ServerController">
+      <UniqueIdentifier>{0df7abd9-8b70-49a7-91aa-d01d69408dc5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Server.cpp">
+    <ClCompile Include="Game\Game.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameMap.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerController\Operation.cpp">
+      <Filter>Source Files\ServerController</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerController\OperationCreator.cpp">
+      <Filter>Source Files\ServerController</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerController\OperationParser.cpp">
+      <Filter>Source Files\ServerController</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayerBase.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Server\Server.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
-    <ClCompile Include="ServerController.cpp">
-      <Filter>Source Files\Controller</Filter>
+    <ClCompile Include="Game\Statistic.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Operation.cpp">
-      <Filter>Source Files\Controller</Filter>
-    </ClCompile>
-    <ClCompile Include="OperationCreator.cpp">
-      <Filter>Source Files\Controller</Filter>
-    </ClCompile>
-    <ClCompile Include="OperationParser.cpp">
-      <Filter>Source Files\Controller</Filter>
+    <ClCompile Include="ServerController\ServerController.cpp">
+      <Filter>Source Files\ServerController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Server.h">
+    <QtMoc Include="ServerController\ServerController.h">
+      <Filter>Header Files\ServerController</Filter>
+    </QtMoc>
+    <QtMoc Include="Server\Server.h">
       <Filter>Header Files\Server</Filter>
     </QtMoc>
-    <QtMoc Include="ServerController.h">
-      <Filter>Header Files\Controller</Filter>
-    </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Operation.h">
-      <Filter>Header Files\Controller</Filter>
+    <ClInclude Include="Game\Game.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="OperationCreator.h">
-      <Filter>Header Files\Controller</Filter>
+    <ClInclude Include="Game\GameMap.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="OperationParser.h">
-      <Filter>Header Files\Controller</Filter>
+    <ClInclude Include="Game\Player.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayerBase.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Statistic.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerController\Operation.h">
+      <Filter>Header Files\ServerController</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerController\OperationCreator.h">
+      <Filter>Header Files\ServerController</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerController\OperationParser.h">
+      <Filter>Header Files\ServerController</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
