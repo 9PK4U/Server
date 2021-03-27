@@ -7,7 +7,7 @@ void ServerController::requestProcessor(int id, QByteArray arrayJsonData)
         QJsonDocument document = QJsonDocument::fromJson(arrayJsonData);
         auto operation = OperationParser::JsonToOperation(document);
 
-        qDebug() << QString::fromStdString(operation.toString()); //DELETE
+        qDebug() << "INPUT DATA" << QString::fromStdString(operation.toString()) <<'\n'; //DELETE
 
 
         operationProcessor(id, operation);
@@ -22,33 +22,36 @@ void ServerController::requestProcessor(int id, QByteArray arrayJsonData)
 
 void ServerController::operationProcessor(int id, Operation operation)
 {
-    //TEMP
-    if (operation.getType() == Operation::Type::FindGame)
+    auto client = (*clientList)[id];
+    switch (operation.getType())
     {
-        Player* player = new Player(std::to_string(id));
-        players[id] = player;
-
-    }
-    if (game == nullptr && players.size() > 1)
-    {
-        game = new Game(players.first(), players.last());
-        qDebug() << "GAME CREATED";
-    }
-    if (game != nullptr)
-    {
-        if (operation.getType() == Operation::Type::EnterCell)
-        {
-            game->step(std::stoi(operation.getParametr("Index")));
-        }
-        auto context = game->getContext();
-
-        qDebug() << QString::fromStdString(context.currentStepPlayerName) << QString::fromStdString(context.player1Points) << QString::fromStdString(context.player2Points) << QString::fromStdString(context.map) << '\n';
+    case Operation::Type::Autorization:
+        gameCore->autorization(client,operation.getParametr("Login"), operation.getParametr("Password"));
+        break;
+    case Operation::Type::Registration:
+        break;
+    case Operation::Type::EnterCell:
+        gameCore->enterCell(id, std::stoi(operation.getParametr("Index")));
+        break;
+    case Operation::Type::GetStatistic:
+        break;
+    case Operation::Type::FindGame:
+        gameCore->findGame(id);
+        break;
+    case Operation::Type::EndGame:
+        break;
+    case Operation::Type::StatusGame:
+        break;
+    case Operation::Type::Error:
+        break;
+    default:
+        break;
     }
 }
 
-ServerController::ServerController(SocketList* clientList, QObject* parent) : clientList(clientList)
+ServerController::ServerController(ClientList* clientList, QObject* parent) : clientList(clientList)
 {
-
+    gameCore = new GameCore();
 }
 
 void ServerController::log(QString message)
@@ -58,18 +61,18 @@ void ServerController::log(QString message)
 
 void ServerController::response(int id, Operation operation)
 {
-    auto& client = (*clientList)[id];
+    auto client = (*clientList)[id];
     auto res = OperationParser::OperationToJson(operation);
     log("Response to " + QString::number(id) + " Data: " + res);
-    client->write(QString::fromStdString(operation.toString()).toUtf8());
+    client->second->write(QString::fromStdString(operation.toString()).toUtf8());
 }
 
 void ServerController::request(int id)
 {
-    auto& client = (*clientList)[id];
-        while (client->bytesAvailable() > 0)
+    auto client = (*clientList)[id];
+        while (client->second->bytesAvailable() > 0)
         {
-            QByteArray array = client->readAll();
+            QByteArray array = client->second->readAll();
             log("Request from " + QString::number(id) + " Data: " + array);
             requestProcessor(id , array);
         }

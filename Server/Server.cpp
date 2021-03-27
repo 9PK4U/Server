@@ -12,7 +12,7 @@ Server::Server(QObject* parent) : QObject(parent)
         throw std::exception("Server is not started!");
     }
 
-    clientList = new SocketList();
+    clientList = new ClientList();
     controller = new ServerController(clientList,this);
 
     writeToLog("Started");
@@ -27,9 +27,9 @@ void Server::slotNewConnection()
 
     QTcpSocket* sock = server->nextPendingConnection();
     int id = sock->socketDescriptor();
-    (*clientList)[id] = sock;
+    (*clientList)[id] = new Client(id,sock);
 
-    connect((*clientList)[id], &QTcpSocket::readyRead, controller, [=]() { controller->request(id); });
+    connect((*clientList)[id]->second, &QTcpSocket::readyRead, controller, [=]() { controller->request(id); });
 
 
 }

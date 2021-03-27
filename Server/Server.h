@@ -22,7 +22,7 @@ public slots:
 
 private:
     QTcpServer* server;
-    SocketList* clientList;
+    ClientList* clientList;
     ServerController *controller;
 
     void writeToLog(QString message);

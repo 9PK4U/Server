@@ -3,11 +3,12 @@
 #include <qtcpsocket.h>
 #include "OperationParser.h"
 #include "OperationCreator.h"
-#include "../Game/Game.h"
+#include "../Game/GameCore.h"
 
 using namespace std;
 
-using SocketList = QMap<int, QTcpSocket*>;
+
+using ClientList = QMap<int, Client*>;
 class ServerController :
 	public QObject
 {
@@ -17,16 +18,12 @@ public:
 	void requestProcessor(int id, QByteArray arrayJsonData);
 	void operationProcessor(int id, Operation operation);
 	
-	ServerController(SocketList* clientList, QObject* parent = nullptr);
+	ServerController(ClientList* clientList, QObject* parent = nullptr);
 
 
 private:
-	//////////////////////////////// TEMP
-	QMap<int, Player*> players;
-	Game *game = nullptr;
-
-	////////////////////////////////
-	SocketList* clientList;
+	GameCore* gameCore;
+	ClientList* clientList;
 	void log(QString message);
 
 	void response(int id, Operation operation);

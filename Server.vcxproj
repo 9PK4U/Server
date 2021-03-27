@@ -93,8 +93,6 @@
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Game\GameCore.cpp" />
     <ClCompile Include="Game\GameMap.cpp" />
-    <ClCompile Include="Game\Player.cpp" />
-    <ClCompile Include="Game\PlayerBase.cpp" />
     <ClCompile Include="Game\Statistic.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ServerController\Operation.cpp" />
@@ -109,11 +107,11 @@
   <ItemGroup>
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Game\GameContext.h" />
-    <ClInclude Include="Game\GameCore.h" />
+    <QtMoc Include="Game\GameCore.h" />
     <ClInclude Include="Game\GameMap.h" />
     <ClInclude Include="Game\Player.h" />
-    <ClInclude Include="Game\PlayerBase.h" />
     <ClInclude Include="Game\Statistic.h" />
+    <ClInclude Include="Game\User.h" />
     <ClInclude Include="ServerController\Operation.h" />
     <ClInclude Include="ServerController\OperationCreator.h" />
     <ClInclude Include="ServerController\OperationParser.h" />

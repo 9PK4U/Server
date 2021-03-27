@@ -55,12 +55,6 @@
     <ClCompile Include="ServerController\OperationParser.cpp">
       <Filter>Source Files\ServerController</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Player.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayerBase.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Server\Server.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
@@ -81,6 +75,9 @@
     <QtMoc Include="Server\Server.h">
       <Filter>Header Files\Server</Filter>
     </QtMoc>
+    <QtMoc Include="Game\GameCore.h">
+      <Filter>Header Files\Game</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Game.h">
@@ -90,9 +87,6 @@
       <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Player.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayerBase.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Statistic.h">
@@ -107,10 +101,10 @@
     <ClInclude Include="ServerController\OperationParser.h">
       <Filter>Header Files\ServerController</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameCore.h">
+    <ClInclude Include="Game\GameContext.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameContext.h">
+    <ClInclude Include="Game\User.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
