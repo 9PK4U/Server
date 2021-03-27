@@ -12,6 +12,7 @@ int main(int argc, char* argv[])
 	Server server;
 
 	//WER
+	//онаедмюъ
 
 
     return a.exec();
