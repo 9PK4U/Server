@@ -25,6 +25,12 @@ bool GameCore::autorization(Client* client, string login, string password)
 	return true;
 }
 
+bool GameCore::registration(string login, string password)
+{
+
+	return false;
+}
+
 bool GameCore::findGame(int id)
 {
 	if (autorizationUsers->find(id) != autorizationUsers->end())

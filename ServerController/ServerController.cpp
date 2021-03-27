@@ -26,7 +26,14 @@ void ServerController::operationProcessor(int id, Operation operation)
     switch (operation.getType())
     {
     case Operation::Type::Autorization:
-        gameCore->autorization(client,operation.getParametr("Login"), operation.getParametr("Password"));
+        if (gameCore->autorization(client, operation.getParametr("Login"), operation.getParametr("Password")))
+        {
+            client->second->write(OperationParser::OperationToJson(OperationCreator::createAutorizationResponse(Process::Success)));
+        }
+        else
+        {
+            client->second->write(OperationParser::OperationToJson(OperationCreator::createAutorizationResponse(Process::Failed)));
+        }
         break;
     case Operation::Type::Registration:
         break;
