@@ -11,9 +11,6 @@ int main(int argc, char* argv[])
 
 	Server server;
 
-	//WERWERWERWERWERWER
-	//онаедмюъ
-
 
     return a.exec();
 }
