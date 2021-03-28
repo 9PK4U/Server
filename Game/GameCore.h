@@ -24,7 +24,7 @@ public:
 	bool findGame(int id);
 	bool enterCell(int id, int index);
 	bool autorization(Client* client, string login, string password);
-	bool registration(string login, string password);
+	bool registration(Client* client, string login, string password);
 	bool getStatictic(int id);
 	bool endGame(int id);
 private slots:

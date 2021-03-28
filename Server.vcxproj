@@ -117,6 +117,9 @@
     <ClInclude Include="ServerController\OperationParser.h" />
     <QtMoc Include="ServerController\ServerController.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="User.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />

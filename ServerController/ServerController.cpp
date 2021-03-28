@@ -36,6 +36,14 @@ void ServerController::operationProcessor(int id, Operation operation)
         }
         break;
     case Operation::Type::Registration:
+        if (gameCore->registration(client, operation.getParametr("Login"), operation.getParametr("Password")))
+        {
+            client->second->write(OperationParser::OperationToJson(OperationCreator::createRegistrationResponse(Process::Success)));
+        }
+        else
+        {
+            client->second->write(OperationParser::OperationToJson(OperationCreator::createRegistrationResponse(Process::Failed)));
+        }
         break;
     case Operation::Type::EnterCell:
         gameCore->enterCell(id, std::stoi(operation.getParametr("Index")));

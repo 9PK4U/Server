@@ -23,7 +23,7 @@ void Server::slotNewConnection()
     //connect(mTcpSocket, &QTcpSocket::readyRead, this, &Server::slotServerRead);
     //connect(mTcpSocket, &QTcpSocket::disconnected, this, &Server::slotClientDisconnected);
 
-    writeToLog("New connected!");
+    
 
     QTcpSocket* sock = server->nextPendingConnection();
     int id = sock->socketDescriptor();
@@ -31,7 +31,7 @@ void Server::slotNewConnection()
 
     connect((*clientList)[id]->second, &QTcpSocket::readyRead, controller, [=]() { controller->request(id); });
 
-
+    writeToLog("New connected!");
 }
 
 void Server::writeToLog(QString message)
