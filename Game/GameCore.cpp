@@ -28,6 +28,7 @@ bool GameCore::autorization(Client* client, string login, string password)
 bool GameCore::registration(string login, string password)
 {
 
+	
 	return false;
 }
 
