@@ -108,4 +108,9 @@
       <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="User.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

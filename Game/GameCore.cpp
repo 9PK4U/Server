@@ -1,10 +1,11 @@
 #include "GameCore.h"
+#include <QFile>
 
 GameCore::GameCore()
 {
 	autorizationUsers = new QMap<int, QPair<Client*, User*>>();
 	findGameUsers = new QMap<int, QPair<Client*, User*>>();
-	activeGames = new QMap<int,Game*>();
+	activeGames = new QMap<int, Game*>();
 
 	connect(this, &GameCore::connectUser, this, &GameCore::startGame);
 
@@ -18,18 +19,71 @@ void GameCore::showActiveUsers()
 
 bool GameCore::autorization(Client* client, string login, string password)
 {
-	User* user = new User(login);
-	auto p = QPair<Client*, User*>(client, user);
-	autorizationUsers->operator[](client->first) = p;
-	showActiveUsers();
-	return true;
+
+	QFile file("User.txt");
+	if (file.open(QIODevice::ReadOnly)) {
+
+		while (!file.atEnd())
+		{
+			QString str = file.readLine();
+			QStringList lst = str.split(" ");
+			std::string loginFile = lst.at(0).toUtf8().constData();//Login
+			std::string passwordFile = lst.at(1).toUtf8().constData();//Password
+
+			if (login == loginFile && (password  == passwordFile || password+"\r\n" == passwordFile ))
+			{
+				User* user = new User(login);
+				auto p = QPair<Client*, User*>(client, user);
+				autorizationUsers->operator[](client->first) = p;
+				showActiveUsers();
+				file.close();
+				return true;
+
+			}
+		}
+		file.close();
+		return false;
+		
+	}
+	else
+	{
+		qDebug() << "Error FILE";
+	}
+
 }
 
-bool GameCore::registration(string login, string password)
+bool GameCore::registration(Client * client, string login, string password)
 {
+	string finishStr;
+	QFile file("User.txt");
+	if (file.open(QIODevice::ReadOnly | QIODevice::WriteOnly | QIODevice::Text)) {
 
-	
-	return false;
+		while (!file.atEnd())
+		{
+			QString str = file.readLine();
+			QStringList lst = str.split(" ");
+			std::string loginFile = lst.at(0).toUtf8().constData();//Login
+			std::string passwordFile = lst.at(1).toUtf8().constData();//Password
+
+			if (login == loginFile)
+			{
+				file.close();
+				return false;
+			}
+		}
+		//Запись в файл
+		finishStr = login + " " + password+"\n";
+		QString str = QString::fromStdString(finishStr);
+		QTextStream writeStream(&file);
+		writeStream << str;
+		file.close();
+		return true;
+		
+	}
+	else
+	{
+		qDebug() << "Error FILE";
+	}
 }
 
 bool GameCore::findGame(int id)
