@@ -4,37 +4,40 @@
 Server::Server(QObject* parent) : QObject(parent)
 {
     server = new QTcpServer(this);
-
-    connect(server, &QTcpServer::newConnection, this, &Server::slotNewConnection);
+    connect(server, &QTcpServer::newConnection, this, &Server::newClient);
 
     if (!server->listen(QHostAddress::Any, 6000)) {
         writeToLog("Not started");
         throw std::exception("Server is not started!");
     }
 
-    clientList = new ClientList();
-    controller = new ServerController(clientList,this);
+    controller = new ServerController(this);
 
     writeToLog("Started");
 }
 
-void Server::slotNewConnection()
+void Server::newClient()
 {
-    //connect(mTcpSocket, &QTcpSocket::readyRead, this, &Server::slotServerRead);
-    //connect(mTcpSocket, &QTcpSocket::disconnected, this, &Server::slotClientDisconnected);
-
-    
-
     QTcpSocket* sock = server->nextPendingConnection();
-    int id = sock->socketDescriptor();
-    (*clientList)[id] = new Client(id,sock);
+    qintptr id = sock->socketDescriptor();
+    (*controller->clientList)[id] = new Client(id,sock);
 
-    connect((*clientList)[id]->second, &QTcpSocket::readyRead, controller, [=]() { controller->request(id); });
+    connect(sock, &QTcpSocket::readyRead, controller, [=]() { controller->request(id); });
+    connect(sock, &QTcpSocket::disconnected, this, &Server::disconnectClient);
 
-    writeToLog("New connected!");
+    writeToLog(QString("ID: ") + QString::number(id) + " is connected");
+}
+
+void Server::disconnectClient()
+{
+    qDebug() << "Disconect ";
 }
 
 void Server::writeToLog(QString message)
 {
     qDebug() <<"Server: "<< message;
+}
+ServerController& Server::getController() const
+{
+    return *controller;
 }

@@ -7,13 +7,11 @@ Operation OperationParser::JsonToOperation(QJsonDocument document)
 	auto obj = document.object();
 	if (!validKeys(obj.keys()))
 	{
-		qDebug() << "Error keys";
-		//throw std::exception("Error keys");
+		throw std::exception("Error keys");
 	}
 	if (!validParametrs(obj["Parametrs"]))
 	{
-		qDebug() << "Error Parametrs";
-		//throw std::exception("Error Parametrs");
+		throw std::exception("Error Parametrs");
 	}
 	auto paramsArray = obj["Parametrs"].toArray();
 

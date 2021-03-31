@@ -35,6 +35,12 @@
     <Filter Include="Source Files\ServerController">
       <UniqueIdentifier>{0df7abd9-8b70-49a7-91aa-d01d69408dc5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Application">
+      <UniqueIdentifier>{526db22c-74b0-4ee5-8e6f-db9275182a8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Application">
+      <UniqueIdentifier>{ba0dcf8a-fda8-4a71-87d8-284edbb61750}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -58,14 +64,14 @@
     <ClCompile Include="Server\Server.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Statistic.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
     <ClCompile Include="ServerController\ServerController.cpp">
       <Filter>Source Files\ServerController</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameCore.cpp">
       <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Application.cpp">
+      <Filter>Source Files\Application</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,8 +81,8 @@
     <QtMoc Include="Server\Server.h">
       <Filter>Header Files\Server</Filter>
     </QtMoc>
-    <QtMoc Include="Game\GameCore.h">
-      <Filter>Header Files\Game</Filter>
+    <QtMoc Include="Application\Application.h">
+      <Filter>Header Files\Application</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -87,9 +93,6 @@
       <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Player.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Statistic.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="ServerController\Operation.h">
@@ -104,8 +107,11 @@
     <ClInclude Include="Game\GameContext.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Game\User.h">
+    <ClInclude Include="Game\GameCore.h">
       <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\User.h">
+      <Filter>Header Files\Application</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

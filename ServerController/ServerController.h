@@ -3,32 +3,29 @@
 #include <qtcpsocket.h>
 #include "OperationParser.h"
 #include "OperationCreator.h"
-#include "../Game/GameCore.h"
 
 using namespace std;
 
-
+using Client = QPair<int, QTcpSocket*>;
 using ClientList = QMap<int, Client*>;
 class ServerController :
 	public QObject
 {
 	Q_OBJECT
 public:
+	ServerController(QObject* parent = nullptr);
+	ClientList* clientList;
 
 	void requestProcessor(int id, QByteArray arrayJsonData);
-	void operationProcessor(int id, Operation operation);
-	
-	ServerController(ClientList* clientList, QObject* parent = nullptr);
 
+	//void operationProcessor(int id, Operation operation);
+	void response(int clientId, Operation operation);
 
-private:
-	GameCore* gameCore;
-	ClientList* clientList;
-	void log(QString message);
-
-	void response(int id, Operation operation);
 public slots:
-	void request(int id);
+	void request(int clientId);
+
+signals:
+	void newOperation(int idClient, Operation operation);
 
 };
 
