@@ -14,7 +14,7 @@ void ServerController::requestProcessor(int id, QByteArray arrayJsonData)
     }
     catch (const std::exception& ex)
     {
-        qDebug() << ex.what();
+        qDebug() << QString("ServerController: ") + ex.what();
         response(id, OperationCreator::createErrorResponse(ex.what()));
     }
 

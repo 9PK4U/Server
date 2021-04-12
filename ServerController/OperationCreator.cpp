@@ -18,11 +18,13 @@ Operation OperationCreator::createRegistrationResponse(Process process, string d
     return Operation(Operation::Type::Registration, params);
 }
 
-Operation OperationCreator::createEnterCellResponse(string value, string map)
+Operation OperationCreator::createEnterCellResponse(GameContext context)
 {
     Parametrs params{ 
-        { "Value" ,value },
-        { "Map" ,map} 
+        { "Index" ,context.lastIndexCell },
+        { "Value" ,context.lastPoint },
+        { "CurrentStep" ,context.currentStepPlayerName },
+        { "StatusGame" , context.statusGame }
     };
     return Operation(Operation::Type::EnterCell, params);
 }
@@ -38,13 +40,12 @@ Operation OperationCreator::createGetStatisticResponse(list<string> staticticLis
     return Operation(Operation::Type::GetStatistic, params);
 }
 
-Operation OperationCreator::createFindGameResponse(string id, string playerName1, string playerName2, string map, string currentStep)
+Operation OperationCreator::createFindGameResponse(string id, string playerName1, string playerName2, string currentStep)
 {
     Parametrs params{
         { "Id" ,id },
         { "PlayerName1" ,playerName1 },
         { "PlayerName2" ,playerName2 },
-        { "Map" ,map },
         { "CurrentStep" ,currentStep }
     };
     return Operation(Operation::Type::FindGame, params);

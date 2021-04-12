@@ -3,22 +3,32 @@
 using std::string;
 class User
 {
-private:
-	string login;
-	string generalPoints;
-	//string mail;
-
 public:
+	//enum State
+	//{
+	//	Played,Sleep
+	//};
 	string getLogin() const
 	{
 		return login;
+	}
+	int getId() const
+	{
+		return id;
 	}
 	string getGeneralPoints() const
 	{
 		return generalPoints;
 	}
 
-	User(string login) : login(login)
+	User(string login,int id) : login(login),id(id)
 	{}
+
+private:
+	int id;
+	string login;
+	string generalPoints;
+	//string mail;
+
 };
 

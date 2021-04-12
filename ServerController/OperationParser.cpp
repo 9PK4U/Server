@@ -13,11 +13,10 @@ Operation OperationParser::JsonToOperation(QJsonDocument document)
 	{
 		throw std::exception("Error Parametrs");
 	}
-	auto paramsArray = obj["Parametrs"].toArray();
-
-	for (auto i : paramsArray)
+	auto paramsObj = obj["Parametrs"].toObject();
+	for (auto i : paramsObj.keys())
 	{
-		params[i.toObject().keys().first().toStdString()] = i.toObject().value(i.toObject().keys().first()).toString().toStdString();
+		params[i.toStdString()] = paramsObj[i].toString().toStdString();
 	}
 
 	try
@@ -33,11 +32,13 @@ Operation OperationParser::JsonToOperation(QJsonDocument document)
 QByteArray OperationParser::OperationToJson(Operation operation)
 {
 	QJsonObject obj;
-	QJsonArray params;
+	QJsonObject params;
+
+
 
 	for (auto i : operation.getParametrs())
 	{
-		params.append(QJsonObject({ std::pair(QString::fromStdString(i.first),QString::fromStdString(i.second)) }));
+		params.insert(QString::fromStdString(i.first), QString::fromStdString(i.second));
 	}
 	obj["Operation"] = QString::fromStdString(Operation::typeToString(operation.getType()));
 	obj["Parametrs"] = params;
@@ -56,20 +57,24 @@ bool OperationParser::validKeys(QStringList& keys)
 }
 bool OperationParser::validParametrs(QJsonValueRef& parametrs)
 {
-	if (!parametrs.isArray())
+	if (!parametrs.isObject())
 		return false;
-	for (auto& i : parametrs.toArray())
+
+
+	for (auto& i : parametrs.toObject())
 	{
-		if (! i.isObject())
+		if (! i.isString())
 			return false;
-		if (i.toObject().keys().size() != 1)
-			return false;
-		for (auto& it : i.toObject())
-		{
-			auto a = it.type();
-			if(a != QJsonValue::Type::String)
-				return false;
-		}
+
+		/*if (i.toObject().keys().size() != 1)
+			return false;*/
+
+		//for (auto& it : i.toObject())
+		//{
+		//	auto a = it.type();
+		//	if(a != QJsonValue::Type::String)
+		//		return false;
+		//}
 	}
 	
 	return true;

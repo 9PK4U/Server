@@ -12,23 +12,25 @@ const Player* Game::getStepPlayer() const
     return stepPlayer;
 }
 
-GameContext Game::getContext()
+GameContext Game::getContext() const
 {
     string strMap;
     for (int i = 0; i < SIZE_MAP; i++)
     {
         strMap += std::to_string((&map.getMap())[i]) +" ";
     }
-    return GameContext(
-        {
-            player1->name,
-            player2->name,
-            strMap,
-            stepPlayer->name,std::to_string(player1->points),
-            std::to_string(player2->points),
-            std::to_string(indexLastStep),
-            std::to_string(pointLastStep) 
-        });
+    GameContext context;
+    context.currentStepPlayerName = stepPlayer->name;
+    context.lastIndexCell = std::to_string(indexLastStep);
+    context.lastPoint = std::to_string(pointLastStep);
+    context.map = strMap;
+    context.player1Name = player1->name;
+    context.player1Points = std::to_string(player1->points);
+    context.player2Name = player2->name;
+    context.player2Points = std::to_string(player2->points);
+    context.statusGame = status==GameProcess::Active?"Active":"End";
+
+    return context;
 }
 
 Game::GameProcess Game::step(int index)
@@ -39,4 +41,9 @@ Game::GameProcess Game::step(int index)
 
     stepPlayer = stepPlayer == player1 ? player2 : player1;
     return GameProcess::Active; //???????????
+}
+
+std::pair<string, string> Game::getNamesPlayers() const
+{
+    return std::pair<string, string>(player1->name,player2->name);
 }

@@ -6,6 +6,7 @@ struct GameContext
 	string player1Name;
 	string player2Name;
 	string map;
+	string statusGame;
 	string currentStepPlayerName;
 	string player1Points;
 	string player2Points;
