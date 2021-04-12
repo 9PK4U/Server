@@ -17,8 +17,10 @@ private:
 public:
 
 	Game(Player* player1, Player* player2);
+	~Game();
 	const Player* getStepPlayer() const;
 	GameContext getContext() const;
-	GameProcess step(int index);
-	std::pair<string, string> getNamesPlayers() const;
+	void step(int index);
+	std::pair<Player*, Player*> getPlayers() const;
+
 };

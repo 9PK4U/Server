@@ -6,9 +6,12 @@ struct Player
 {
 	string name;
 	int points;
+	int id;
+	bool alive = true;
 
-	Player(string name) : name(name)
+	Player(string name, int id) : name(name), id(id)
 	{
 		points = 0;
 	}
+
 };

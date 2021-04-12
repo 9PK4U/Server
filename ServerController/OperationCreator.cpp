@@ -61,9 +61,11 @@ Operation OperationCreator::createStasusGameResponse(string pointsPlayer1, strin
     return Operation(Operation::Type::StatusGame, params);
 }
 
-Operation OperationCreator::createEndGameResponse(string details)
+Operation OperationCreator::createEndGameResponse(string winner,string details)
 {
-    Parametrs params{ { "Details" ,details} };
+    Parametrs params{ 
+        { "Winner", winner},
+        { "Details" ,details} };
     return Operation(Operation::Type::EndGame, params);
 }
 

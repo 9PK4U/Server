@@ -7,7 +7,7 @@ void ServerController::requestProcessor(int id, QByteArray arrayJsonData)
         QJsonDocument document = QJsonDocument::fromJson(arrayJsonData);
         auto operation = OperationParser::JsonToOperation(document);
 
-        qDebug() << "INPUT DATA" << QString::fromStdString(operation.toString()) <<'\n'; //DELETE
+        qDebug() << "\n" <<"ServerController::INPUT PARSE DATA: " << QString::fromStdString(operation.toString()); //DELETE
 ;
         emit newOperation(id, operation);
 
@@ -29,7 +29,7 @@ void ServerController::response(int id, Operation operation)
 {
     auto client = (*clientList)[id];
     auto res = OperationParser::OperationToJson(operation);
-    qDebug() <<"Response to " + QString::number(id) + " Data: " + res;
+    qDebug() << "\n" <<"ServerController::Response to " << QString::number(id) << " Data: " << res;
     client->second->write(res);
 }
 
@@ -39,7 +39,7 @@ void ServerController::request(int id)
         while (client->second->bytesAvailable() > 0)
         {
             QByteArray array = client->second->readAll();
-            qDebug() << "Request from " + QString::number(id) + " Data: " + array;
+            qDebug() << "\n" << "ServerController::Request from " << QString::number(id) << " Data: " << array;
             requestProcessor(id , array);
         }
 }

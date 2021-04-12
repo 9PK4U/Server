@@ -44,7 +44,7 @@ public:
 		string str;
 		str+= std::string("Type: ") + Operation::typeToString(getType()) + string("   Parametrs: {");
 		for (auto i : getParametrs())
-			str += std::string("{ Key:") + i.first + std::string("   Value:") + i.second + std::string("}");
+			str += std::string("Key:") + i.first + std::string("   Value:") + i.second + std::string(",");
 		str += "}";
 		return str;
 	}

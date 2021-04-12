@@ -16,7 +16,7 @@ public:
 	static Operation createGetStatisticResponse(list<string> staticticList);
 	static Operation createFindGameResponse(string id, string playerName1, string playerName2, string currentStep);
 	static Operation createStasusGameResponse(string pointsPlayer1, string pointsPlayer2, string currentStep);
-	static Operation createEndGameResponse(string details = "");
+	static Operation createEndGameResponse(string winner,string details = "");
 	static Operation createErrorResponse(string details = "");
 
 

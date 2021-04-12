@@ -26,16 +26,18 @@ private:
 	void enterCell(int idClient, Parametrs parametrs);
 
 	//Checks function
-	bool checkAutorization(int& idClient);
+	bool checkAutorization(int& idClient, bool sendError = false);
 	Game* checkGame(int& idClient, int idGame);
+	bool checkPlayed(int& idClient);
 	
 
-
+	void endGame(int idGame);
 
 signals:
 	void newSearchUser();
 private slots:
 	void startNewGame();
+	
 
 };
 

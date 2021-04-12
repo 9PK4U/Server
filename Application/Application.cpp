@@ -45,6 +45,11 @@ void Application::operationProcessor(int id, Operation operation)
 
 void Application::autorization(int idClient, Parametrs parametrs)
 {
+    if (checkAutorization(idClient))
+    {
+        controller.response(idClient, OperationCreator::createErrorResponse("You are already logged in"));
+        return;
+    }
     if (parametrs.find("Login") == parametrs.end()
         || parametrs.find("Password") == parametrs.end())
     {
@@ -133,18 +138,28 @@ void Application::registration(int idClient, Parametrs parametrs)
 
 void Application::findGame(int idClient, Parametrs parametrs)
 {
-    if (!checkAutorization(idClient)) return;
+    if (!checkAutorization(idClient,true)) return;
+    if (checkPlayed(idClient))
+    {
+        controller.response(idClient, OperationCreator::createErrorResponse("You have already found the game"));
+        return;
+    }
     auto user = (*autorizationUsers)[idClient];
-    (*findGameUsers)[idClient] = user;
+    if (findGameUsers->contains(user)) {
+        controller.response(idClient, OperationCreator::createErrorResponse("You are already looking for a game"));
+        return;
+    }
+    (*findGameUsers).push_back(user);
     emit newSearchUser();
 }
 
-bool Application::checkAutorization(int& idClient)
+bool Application::checkAutorization(int& idClient, bool sendError)
 {
 
     if (autorizationUsers->find(idClient) == autorizationUsers->end())
     {
-        controller.response(idClient, OperationCreator::createErrorResponse("To access, you need to log in"));
+        if (sendError)
+            controller.response(idClient, OperationCreator::createErrorResponse("To access, you need to log in"));
         return false;
     }
     return true;
@@ -153,13 +168,12 @@ Game* Application::checkGame(int& idClient, int idGame)
 {
     try
     {
-
         auto game = (*activeGames)[idGame];
         if (game != nullptr && checkAutorization(idClient))
         {
-            auto names = game->getNamesPlayers();
-            auto namePlayer = (*autorizationUsers)[idGame]->getLogin();
-            if (names.second == namePlayer || names.first == namePlayer)
+            auto players = game->getPlayers();
+            auto namePlayer = (*autorizationUsers)[idClient]->getLogin();
+            if (players.second->name == namePlayer || players.first->name == namePlayer)
             {
                 return game;
             }
@@ -178,6 +192,30 @@ Game* Application::checkGame(int& idClient, int idGame)
     }
 }
 
+bool Application::checkPlayed(int& idClient)
+{
+    for (auto& it : *activeGames)
+    {
+        auto players = it->getPlayers();
+        if (players.first->id == idClient || players.second->id == idClient)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+void Application::endGame(int idGame)
+{
+    auto game = activeGames->value(idGame);
+    auto context = game->getContext();
+    auto winner = context.player1Points > context.player2Points ? context.player1Name : context.player2Name;
+
+    controller.response(game->getPlayers().first->id, OperationCreator::createEndGameResponse(winner));
+    controller.response(game->getPlayers().second->id, OperationCreator::createEndGameResponse(winner));
+    activeGames->remove(idGame);
+}
+
 void Application::startNewGame()
 {
     static int countGame = 0;
@@ -186,8 +224,8 @@ void Application::startNewGame()
     auto user1 = findGameUsers->takeFirst();
     auto user2 = findGameUsers->takeFirst();
 
-    Player* player1 = new Player(user1->getLogin());
-    Player* player2 = new Player(user2->getLogin());
+    Player* player1 = new Player(user1->getLogin(),user1->getId());
+    Player* player2 = new Player(user2->getLogin(), user2->getId());
     Game* game = new Game(player1, player2);
     (*activeGames)[countGame] = game;
     controller.response(user1->getId(), OperationCreator::createFindGameResponse(QString::number(countGame).toStdString(), 
@@ -204,19 +242,33 @@ void Application::enterCell(int idClient, Parametrs parametrs)
 {
     try
     {
-        auto game = checkGame(idClient, std::stoi(parametrs["Id"]));
+        int id = std::stoi(parametrs["Id"]);
+        auto game = checkGame(idClient, id);
         if (game == nullptr) return;
 
         if (game->getStepPlayer()->name == (*autorizationUsers)[idClient]->getLogin())
         {
             int index = std::stoi(parametrs["Index"]);
+            if (index < 0 || index > 15)
+            {
+                controller.response(idClient, OperationCreator::createErrorResponse("Incorrect index[0-15]"));
+                return;
+            }
             game->step(index);
-            controller.response(idClient, OperationCreator::createEnterCellResponse(game->getContext()));
+            auto context = game->getContext();
+            controller.response(game->getPlayers().first->id, OperationCreator::createEnterCellResponse(context));
+            controller.response(game->getPlayers().second->id, OperationCreator::createEnterCellResponse(context));
+            if (context.statusGame == "End")
+            {
+                endGame(id);
+            }
         }
         else
         {
             controller.response(idClient, OperationCreator::createErrorResponse("Not your step"));
         }
+
+
     }
     catch (const std::exception& ex)
     {

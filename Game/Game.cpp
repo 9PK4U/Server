@@ -7,6 +7,13 @@ Game::Game(Player* player1, Player* player2) : player1(player1), player2(player2
     player2->points = 0;
 }
 
+Game::~Game()
+{
+    delete player1;
+    delete player2;
+    delete stepPlayer;
+}
+
 const Player* Game::getStepPlayer() const
 {
     return stepPlayer;
@@ -33,17 +40,46 @@ GameContext Game::getContext() const
     return context;
 }
 
-Game::GameProcess Game::step(int index)
+void Game::step(int index)
 {
     indexLastStep = index;
     pointLastStep = map.takeCell(index);
-    stepPlayer->points += pointLastStep;
+    
 
-    stepPlayer = stepPlayer == player1 ? player2 : player1;
-    return GameProcess::Active; //???????????
+    if (pointLastStep == BOMB_POINT)
+    {
+        stepPlayer->alive = false;
+    }
+    else
+    {
+        stepPlayer->points += pointLastStep;
+    }
+    if (player1->alive || player2->alive)
+    {
+        status = GameProcess::Active;
+
+        if (!player1->alive)
+        {
+            stepPlayer = player2;
+        }
+        else if (!player2->alive)
+        {
+            stepPlayer = player1;
+        }
+        else
+        {
+            stepPlayer = stepPlayer == player1 ? player2 : player1;
+        }
+        
+    }
+    else
+    {
+        status = GameProcess::End;
+    }
+    
 }
 
-std::pair<string, string> Game::getNamesPlayers() const
+std::pair<Player*, Player*> Game::getPlayers() const
 {
-    return std::pair<string, string>(player1->name,player2->name);
+    return std::pair<Player*, Player*>(player1,player2);
 }
